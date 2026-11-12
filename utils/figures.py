@@ -11,3 +11,12 @@ def plot_survival_pie_chart(data):
     fig = px.pie(outcome, names="survival", values="count", hole=0.5, color="survival",
                  color_discrete_map={"Died": "#D95D4A", "Survived": "#0F766E"}, title="Died vs survived")
     return fig
+
+def plot_heatmap(data):
+    rate = data.pivot_table(index="sex", columns="class", values="survived", aggfunc="mean")
+
+    fig = px.imshow(rate, text_auto=".0%", zmin=0, zmax=1, color_continuous_scale="Teal",
+                labels={"x": "Class", "y": "Sex", "color": "Survival rate"},
+                title="Survival rate by sex and class")
+    return fig
+
