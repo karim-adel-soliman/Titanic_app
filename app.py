@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 from utils.data import load_data
 from utils.config import COLORS, ORDERS
+from utils.figures import plot_family_size_histogram, plot_survival_pie_chart
 
 
 st.set_page_config(layout="wide")
@@ -23,14 +24,7 @@ data = df[(df["class"].isin(classes)) & (df["sex"].isin([genders]))]
 
 c1, c2 = st.columns(2)
 with c1:
-    fig = px.histogram(data, x="family_size", nbins=11, labels={"family_size": "Family size (incl. the passenger)"},
-                   title="How big were the families on board?")
-    fig.update_layout(bargap=0.1, yaxis_title="Passengers")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(plot_family_size_histogram(data))
 
 with c2:
-    outcome = data["survival"].value_counts().reset_index()
-
-    fig2 = px.pie(outcome, names="survival", values="count", hole=0.5, color="survival",
-                color_discrete_map=COLORS, title="Died vs survived")
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(plot_survival_pie_chart(data))
