@@ -1,9 +1,7 @@
 import pandas as pd
-import streamlit as st
 
-@st.cache_data
 def load_data():
-    df = pd.read_csv("../Data/titanic.csv")
+    df = pd.read_csv("Data/titanic.csv")
     df.columns = df.columns.str.lower()
     df["class"] = df["pclass"].map({1: "First", 2: "Second", 3: "Third"})
     df["survival"] = df["survived"].map({0: "Died", 1: "Survived"})

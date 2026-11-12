@@ -3,6 +3,8 @@ import plotly.express as px
 from utils.data import load_data
 from utils.config import COLORS, ORDERS
 
+
+st.set_page_config(layout="wide")
 df = load_data()
 
 st.title("Titanic Survival Prediction App")
